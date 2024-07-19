@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 function WatchList({watchlist}) {
-  console.log(watchlist);
+  // console.log(watchlist);
+
+  let [search , setSearch] = useState('')
+
+  let handleSearch = (e)=>{
+    setSearch(e.target.value)
+  }
   return (
     <>
     <div className='flex items-center justify-center mt-10'>
       {/* Search field */}
-      <input type="text"placeholder='Search for Movie' className='bg-gray-100 p-2 rounded-md placeholder-pink-400 w-[20rem] h-[4rem]  px-[2rem] border border-gray-400 hover:border-gray-500 text-xl font-bold border-solid outline-none' />
+      <input type="text"placeholder='Search for Movie' onChange={handleSearch} value={search}  className='bg-gray-100 p-2 rounded-md placeholder-pink-400 w-[20rem] h-[4rem]  px-[2rem] border border-gray-400 hover:border-gray-500 text-xl font-bold border-solid outline-none' />
     </div>
 
 
@@ -23,7 +29,9 @@ function WatchList({watchlist}) {
         </thead>
 
         <tbody className='border border-gray-300 bg-gray-100'>
-          {watchlist.map((movie)=>{
+          {watchlist.filter((movie)=>(
+            movie.title.toLowerCase().includes(search)
+          )).map((movie)=>{
            return <> <tr className='border-b-4 border-gray-300'>
             <td className='flex justify-start items-center p-4'>
               <img className="w-[200px] h-[100px] rounded-lg bd-cover" src= {`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`} alt="movie" />
