@@ -10,7 +10,7 @@ function WatchList() {
   // console.log(watchlist);
 
 
-  let {watchList ,handleAddToWatchList , setWatchList}  = useContext(MovieContext)
+  let {watchList  , setWatchList , deleteFromWatchList}  = useContext(MovieContext)
 
   let [search, setSearch] = useState("");
   let [genreList, setGenreList] = useState([]);
@@ -32,7 +32,7 @@ function WatchList() {
      genre = new Set(genre);
     // console.log(genre);
     setGenreList(['All Genres', ...genre]);
-  }, []);
+  }, [watchList]);
 
   let handleRatingsAscending = ()=>{
     let sortedAsc = watchList.sort((movieObjA, movieObjB)=>{
@@ -128,7 +128,7 @@ function WatchList() {
                       <td className="text-lg">{movie.vote_average}</td>
                       <td className="text-lg">{movie.popularity}</td>
                       <td className="text-lg">{genres[movie.genre_ids[0]]}</td>
-                      <td className="text-red-600">Delete</td>
+                      <td onClick={()=>deleteFromWatchList(movie)} className="text-red-600 cursor-pointer">Delete</td>
                     </tr>
                   </>
                 );

@@ -14,7 +14,7 @@ function MovieCard({
   // }
 
   // using destructuring Context values as props
-  let {watchList , handleAddToWatchList} = useContext(MovieContext)
+  let {watchList , handleAddToWatchList ,deleteFromWatchList} = useContext(MovieContext)
 
   function doesContains(){
     for(let i=0;i<watchList.length;i++) {
@@ -33,7 +33,8 @@ function MovieCard({
     >
 
       {doesContains(movieObj) ? ( <div
-        onClick={() => handleAddToWatchList(movieObj)}
+        onClick= {()=>deleteFromWatchList(movieObj)}
+        
         className="  text-center text-white  text-2xl"
       >
         &#10060;

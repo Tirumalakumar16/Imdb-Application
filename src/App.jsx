@@ -17,6 +17,16 @@ function App() {
     localStorage.setItem('Movies',JSON.stringify(newWatchList))
     // console.log(newWatchList);
   }
+
+  let deleteFromWatchList = (movieObj)=>{
+
+    let filteredMovies = watchList.filter((movie)=>{
+      return movie.id != movieObj.id
+    })
+
+    setWatchList(filteredMovies)
+    localStorage.setItem("Movies", JSON.stringify(filteredMovies))
+  }
   
   useEffect(()=>{
     let localStrorageWatchList = localStorage.getItem('Movies')
@@ -29,7 +39,7 @@ function App() {
     <>
     <BrowserRouter>
     {/* using UseContext to send functions and values directly to child */}
-    <MovieContext.Provider value={{handleAddToWatchList ,watchList,setWatchList}}>
+    <MovieContext.Provider value={{handleAddToWatchList, deleteFromWatchList ,watchList,setWatchList}}>
     <NavBar />
     <Routes>
       <Route path="/movies" element={<><Banner />
