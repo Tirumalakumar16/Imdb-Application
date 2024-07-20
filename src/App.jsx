@@ -32,7 +32,7 @@ function App() {
         <Movies handleAddToWatchList={handleAddToWatchList} watchlist={watchList}/> </>}/>
         <Route path="/" element={<><Banner />
           <Movies handleAddToWatchList={handleAddToWatchList} watchlist={watchList} /> </>}/>
-    <Route path="/watchlist" element={   <> <WatchList watchlist={watchList}/> </>}/>
+    <Route path="/watchlist" element={   <> <WatchList watchlist={watchList} setWatchList={setWatchList}/> </>}/>
 
     </Routes>
  
