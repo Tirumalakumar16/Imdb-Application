@@ -7,7 +7,6 @@ function Movies({handleAddToWatchList,watchlist}) {
 
   let [movies , setMovies] = useState([])
   let [pageNo , setPageNo] = useState(1)
-
   const handleNext = ()=>{
      setPageNo(pageNo+1)
   }
@@ -19,12 +18,14 @@ function Movies({handleAddToWatchList,watchlist}) {
  }
 
 
+   
+
   // console.log(movies);
 useEffect(()=>{
   // Axios is getting the result in object model ,and fetch method not gonna used as dot notations
   axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=31cf5edd5fa77f29ca1b264727c7febb&language=en-US&page=${pageNo}`)
   .then((res)=>{
-    // console.log(res.data.results);
+    console.log(res.data);
     setMovies(res.data.results)
   })
   // const options = {
@@ -48,7 +49,7 @@ useEffect(()=>{
        </div>
        <div className='flex gap-4 flex-wrap justify-evenly'>
           {movies.map((movie)=>{
-            return <MovieCard  moviePoster={movie.poster_path} title={movie.title} movieObj={movie} handleAddToWatchList={handleAddToWatchList} watchlist={watchlist}/>
+            return <MovieCard  moviePoster={movie.poster_path} title={movie.title} movieObj={movie} />
           })}
        </div>
        <Pagination next={handleNext} prevous={handlePrevious} pageNumber={pageNo}/>

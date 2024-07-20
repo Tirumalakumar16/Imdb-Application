@@ -2,8 +2,15 @@ import React, { useEffect, useState } from "react";
 
 import genres from "../utilities/genres";
 
-function WatchList({ watchlist , setWatchList}) {
+import { MovieContext } from "./MovieContext";
+
+import { useContext } from "react";
+
+function WatchList() {
   // console.log(watchlist);
+
+
+  let {watchList ,handleAddToWatchList , setWatchList}  = useContext(MovieContext)
 
   let [search, setSearch] = useState("");
   let [genreList, setGenreList] = useState([]);
@@ -18,7 +25,7 @@ function WatchList({ watchlist , setWatchList}) {
   }
 
   useEffect(() => {
-    let genre = watchlist.map((movie) => {
+    let genre = watchList.map((movie) => {
       return genres[movie.genre_ids[0]];
     });
 
@@ -28,14 +35,14 @@ function WatchList({ watchlist , setWatchList}) {
   }, []);
 
   let handleRatingsAscending = ()=>{
-    let sortedAsc = watchlist.sort((movieObjA, movieObjB)=>{
+    let sortedAsc = watchList.sort((movieObjA, movieObjB)=>{
       return movieObjA.vote_average - movieObjB.vote_average
     }) 
     setWatchList([...sortedAsc])
   }
 
   let handleRatingsDescending = ()=>{
-    let sortedDesc = watchlist.sort((movieObjA, movieObjB)=>{
+    let sortedDesc = watchList.sort((movieObjA, movieObjB)=>{
       return movieObjB.vote_average - movieObjA.vote_average
     }) 
 
@@ -44,7 +51,7 @@ function WatchList({ watchlist , setWatchList}) {
 
 
   let handlePopularityAsc = ()=>{
-    let ascPopularity = watchlist.sort((A ,B )=>{
+    let ascPopularity = watchList.sort((A ,B )=>{
       return A.popularity - B.popularity
     })
 
@@ -52,7 +59,7 @@ function WatchList({ watchlist , setWatchList}) {
   }
 
   let handlePopularityDesc = ()=>{
-    let descPopularity = watchlist.sort((A ,B )=>{
+    let descPopularity = watchList.sort((A ,B )=>{
       return B.popularity - A.popularity
     })
     setWatchList([...descPopularity])
@@ -97,7 +104,7 @@ function WatchList({ watchlist , setWatchList}) {
           </thead>
 
           <tbody className="border border-gray-300 bg-gray-100">
-            {watchlist.filter((movie)=>{
+            {watchList.filter((movie)=>{
                 if(currGenre == 'All Genres'){
                   return true
                 } else {

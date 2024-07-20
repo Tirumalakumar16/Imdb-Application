@@ -1,20 +1,24 @@
 /* eslint-disable react/prop-types */
 import React from "react";
+import { MovieContext } from "./MovieContext";
+import { useContext } from "react";
 
 function MovieCard({
   moviePoster,
   title,
   movieObj,
-  handleAddToWatchList,
-  watchlist,
+  
 }) {
   // let handleAddWatchList =()=>{
   //   console.log(movieObj);
   // }
 
+  // using destructuring Context values as props
+  let {watchList , handleAddToWatchList} = useContext(MovieContext)
+
   function doesContains(){
-    for(let i=0;i<watchlist.length;i++) {
-      if(watchlist[i].id === movieObj.id){
+    for(let i=0;i<watchList.length;i++) {
+      if(watchList[i].id === movieObj.id){
         return true
       }
     }
